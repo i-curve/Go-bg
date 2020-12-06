@@ -12,7 +12,9 @@ type Diary struct {
 func (a *Diary) CreateDiary() bool {
 	return model.CreateDiary(a.Username, a.Title, a.Text)
 }
-
+func (a *Diary) ModifyDiary() bool {
+	return model.ModifiedDiary(a.ID, a.Title, a.Text)
+}
 func (a *Diary) GetDiarys(pageNum, pageSize int) ([]*model.Diary, error) {
 	return model.GetDiarys(pageNum, pageSize, a.getMaps())
 }

@@ -32,7 +32,9 @@ func Setup() {
 	if err != nil {
 		log.Fatalf("connect the mysql error: '%v'", err)
 	}
-	// db.LogMode(true)
+	if setting.ServerSetting.RunMode == "debug" {
+		db.LogMode(true)
+	}
 	gorm.DefaultTableNameHandler = func(db *gorm.DB, defaultTableName string) string {
 		return setting.DatabaseSetting.TablePrefix + defaultTableName
 	}
@@ -43,6 +45,7 @@ func Setup() {
 	db.DB().SetMaxOpenConns(100)
 }
 func CloseDB() {
+	log.Println("关闭数据库连接")
 	defer db.Close()
 }
 

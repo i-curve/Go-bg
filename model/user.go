@@ -1,15 +1,15 @@
 package model
 
 import (
-	"log"
-
 	"github.com/jinzhu/gorm"
 )
 
 type User struct {
-	ID       int    `gorm:"primary_key" json:"id"`
-	Username string `json:"username"`
-	Password string `json:"password"`
+	ID         int `gorm:"primary_key" json:"id"`
+	CreatedOn  int
+	ModifiedOn int
+	Username   string `json:"username"`
+	Password   string `json:"password"`
 }
 
 func CheckUser(username, password string) (bool, error) {
@@ -45,9 +45,7 @@ func IsExist(name string) bool {
 
 	err := db.Model(&user).Where("username=?", name).First(&user).Error
 	if err != gorm.ErrRecordNotFound && user.ID > 0 {
-		log.Println("+++++++++++")
 		return true
 	}
-	log.Println("+++++++++++---------")
 	return false
 }

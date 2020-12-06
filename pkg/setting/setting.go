@@ -10,6 +10,11 @@ import (
 type App struct {
 	PageSize  int
 	JwtSecret string
+
+	LogSavePath string
+	LogSaveName string
+	LogFileExt  string
+	TimeFormat  string
 }
 
 var AppSetting = &App{}
@@ -56,6 +61,9 @@ func Setup() {
 	MapTo("server", ServerSetting)
 	MapTo("database", DatabaseSetting)
 	MapTo("redis", RedisSetting)
+	if ServerSetting.RunMode != "release" {
+		log.Println("\nRun mode:   ", ServerSetting.RunMode)
+	}
 	ServerSetting.ReadTimeout = ServerSetting.ReadTimeout * time.Second
 	ServerSetting.WriteTimeout = ServerSetting.WriteTimeout * time.Second
 }

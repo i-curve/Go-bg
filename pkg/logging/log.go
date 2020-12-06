@@ -6,6 +6,7 @@ import (
 	"os"
 	"path/filepath"
 	"runtime"
+	"template/pkg/setting"
 )
 
 type Level int
@@ -17,29 +18,41 @@ var (
 	DefaultCallerDepth = 2
 	logger             *log.Logger
 	logPrefix          = ""
-	levelFlags         = []string{"DEBUG", "INFO", "WARN", "ERROR", "FATAL"}
+	levelFlags         = []string{"INFO", "DEBUG", "WARN", "ERROR", "FATAL"}
 )
 
 const (
-	DEBUG Level = iota
-	INFO
+	INFO Level = iota
+	DEBUG
 	WARNING
 	ERROR
 	FATAL
 )
 
 func Setup() {
+	if setting.AppSetting.LogSavePath != "" {
+		LogSavePath = setting.AppSetting.LogSavePath
+	}
+	if setting.AppSetting.LogSaveName != "" {
+		LogSaveName = setting.AppSetting.LogSaveName
+	}
+	if setting.AppSetting.LogFileExt != "" {
+		LogFileExt = setting.AppSetting.LogFileExt
+	}
+	if setting.ServerSetting.RunMode == "release" {
+		TimeFormat = setting.AppSetting.TimeFormat
+	}
+
 	filePath := getLogFileFullPath()
 	F = openLogFile(filePath)
-
 	logger = log.New(F, DefaultPrefix, log.LstdFlags)
-}
-func Debug(v ...interface{}) {
-	setPrefix(DEBUG)
-	logger.Println(v)
 }
 func Info(v ...interface{}) {
 	setPrefix(INFO)
+	logger.Println(v)
+}
+func Debug(v ...interface{}) {
+	setPrefix(DEBUG)
 	logger.Println(v)
 }
 func Warn(v ...interface{}) {

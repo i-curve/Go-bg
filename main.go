@@ -44,5 +44,8 @@ func main() {
 	if err != nil {
 		log.Printf("Server err:%v", err)
 	}
-	logging.Info("运行成功...")
+	if setting.ServerSetting.RunMode == "release" {
+		logging.Info("运行成功...")
+	}
+	model.CloseDB()
 }

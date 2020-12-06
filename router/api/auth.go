@@ -1,7 +1,6 @@
 package api
 
 import (
-	"log"
 	"net/http"
 	"template/pkg/app"
 	"template/pkg/e"
@@ -37,7 +36,6 @@ func GetAuth(c *gin.Context) {
 		appG.Response(http.StatusOK, e.USER_NOT_EXIST, nil)
 		return
 	}
-	log.Println("--------------")
 	isCheck, err := authService.Check()
 	if err != nil {
 		appG.Response(http.StatusOK, e.ERROR, nil)
@@ -51,7 +49,7 @@ func GetAuth(c *gin.Context) {
 
 	token, err := util.GenerateToken(a.Username, a.Password)
 	if err != nil {
-		appG.Response(http.StatusOK, e.ERROR, nil)
+		appG.Response(http.StatusOK, e.ERROR_AUTH_GENERNATE_TOKEN, nil)
 		return
 	}
 
@@ -81,7 +79,7 @@ func CreateUser(c *gin.Context) {
 	}
 	status, err := authService.Register()
 	if status != true || err != nil {
-		appG.Response(http.StatusOK, e.ERROR_AUTH_CHECK_TOKEN_FAIL, nil)
+		appG.Response(http.StatusOK, e.ERROR, nil)
 		return
 	}
 	appG.Response(http.StatusOK, e.SUCCESS, map[string]string{
