@@ -6,6 +6,7 @@ import (
 	"os"
 	"path/filepath"
 	"runtime"
+	"template/pkg/file"
 	"template/pkg/setting"
 )
 
@@ -31,7 +32,7 @@ const (
 
 func Setup() {
 	if setting.AppSetting.LogSavePath != "" {
-		LogSavePath = setting.AppSetting.LogSavePath
+		LogSavePath = setting.AppSetting.RuntimeRootPath + setting.AppSetting.LogSavePath
 	}
 	if setting.AppSetting.LogSaveName != "" {
 		LogSaveName = setting.AppSetting.LogSaveName
@@ -43,8 +44,14 @@ func Setup() {
 		TimeFormat = setting.AppSetting.TimeFormat
 	}
 
-	filePath := getLogFileFullPath()
-	F = openLogFile(filePath)
+	var err error
+	filePath := getLogFilePath()
+	fileName := getLogFileName()
+	F, err = file.MustOpen(fileName, filePath)
+	if err != nil {
+		log.Fatalf("logging.Setup: %v", err)
+	}
+
 	logger = log.New(F, DefaultPrefix, log.LstdFlags)
 }
 func Info(v ...interface{}) {

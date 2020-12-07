@@ -2,6 +2,7 @@ package router
 
 import (
 	"template/middleware/jwt"
+	"template/pkg/setting"
 	"template/router/api"
 	v1 "template/router/api/v1"
 
@@ -10,6 +11,7 @@ import (
 )
 
 func InitRouter() *gin.Engine {
+	gin.SetMode(setting.ServerSetting.RunMode)
 	router := gin.New()
 	router.Use(gin.Logger())
 	router.Use(gin.Recovery())

@@ -5,22 +5,21 @@ import (
 	"log"
 	"syscall"
 	"template/model"
+	"template/pkg/gredis"
 	"template/pkg/logging"
 	"template/pkg/setting"
 	"template/router"
 
 	"github.com/fvbock/endless"
-	"github.com/gin-gonic/gin"
 )
 
 func init() {
 	setting.Setup()
 	model.Setup()
 	logging.Setup()
+	gredis.Setup()
 }
 func main() {
-	gin.SetMode(setting.ServerSetting.RunMode)
-	// routerInit := router.InitRouter()
 
 	endless.DefaultReadTimeOut = setting.ServerSetting.ReadTimeout
 	endless.DefaultWriteTimeOut = setting.ServerSetting.WriteTimeout

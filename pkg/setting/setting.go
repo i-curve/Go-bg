@@ -10,11 +10,18 @@ import (
 type App struct {
 	PageSize  int
 	JwtSecret string
+	PrefixUrl string
+
+	RuntimeRootPath string
 
 	LogSavePath string
 	LogSaveName string
 	LogFileExt  string
 	TimeFormat  string
+
+	ImageSavePath  string
+	ImageMaxSize   int
+	ImageAllowExts []string
 }
 
 var AppSetting = &App{}
@@ -42,8 +49,8 @@ var DatabaseSetting = &Database{}
 type Redis struct {
 	Host        string
 	Password    string
-	MaxIdle     time.Duration
-	MaxActive   time.Duration
+	MaxIdle     int
+	MaxActive   int
 	IdleTimeout time.Duration
 }
 
