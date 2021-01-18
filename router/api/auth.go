@@ -21,7 +21,8 @@ func GetAuth(c *gin.Context) {
 	appG := app.Gin{C: c}
 	valid := validation.Validation{}
 	var a auth
-	_ = c.BindJSON(&a)
+	a.Username = c.PostForm("username")
+	a.Password = c.PostForm("password")
 	ok, _ := valid.Valid(&a)
 
 	if !ok {
@@ -63,11 +64,12 @@ func CreateUser(c *gin.Context) {
 	valid := validation.Validation{}
 
 	var a auth
-	_ = c.BindJSON(&a)
+	a.Username = c.PostForm("username")
+	a.Password = c.PostForm("password")
 	ok, _ := valid.Valid(&a)
 	if !ok {
 		app.MakeErrors(valid.Errors)
-		appG.Response(http.StatusOK, e.INVALID_PARAMS, nil)
+		appG.Response(http.StatusAccepted, e.INVALID_PARAMS, nil)
 		return
 	}
 

@@ -2,3 +2,4 @@ main
 runtime/*
 upload/*
 logs/*
+.vscode/*

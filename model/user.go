@@ -5,11 +5,13 @@ import (
 )
 
 type User struct {
-	ID         int `gorm:"primary_key" json:"id"`
-	CreatedOn  int
-	ModifiedOn int
+	ID         int    `gorm:"primary_key" json:"id"`
 	Username   string `json:"username"`
 	Password   string `json:"password"`
+	Email      string `json:"email"`
+	Role       string `json:"role"`
+	CreatedOn  int
+	ModifiedOn int
 }
 
 func CheckUser(username, password string) (bool, error) {
@@ -24,7 +26,6 @@ func CheckUser(username, password string) (bool, error) {
 	}
 	return true, nil
 }
-
 func Register(username, password string) (bool, error) {
 	var user User
 	err := db.Select("id").Where(User{Username: username, Password: password}).First(&user).Error
@@ -39,6 +40,9 @@ func Register(username, password string) (bool, error) {
 		return false, err
 	}
 	return true, nil
+}
+func Delete(username string) (bool, error) {
+
 }
 func IsExist(name string) bool {
 	var user User

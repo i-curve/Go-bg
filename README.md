@@ -31,3 +31,7 @@ _ "github.com/jinzhu/gorm/dialects/mysql"
 
 只有release模式才会生成log日志信息,默认日志位置runtime/logs  
 除了启动成功,只有致命的程序本身出错才会有日志产生.
+
+5. 提交说明
+
+增加了redis和image上传支持

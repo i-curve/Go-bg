@@ -62,7 +62,7 @@ func GetDiarys(c *gin.Context) {
 	var username string
 	username = c.PostForm("username")
 	if username == "" {
-		appG.Response(http.StatusBadRequest, e.INVALID_PARAMS, nil)
+		appG.Response(http.StatusOK, e.INVALID_PARAMS, nil)
 		return
 	}
 
@@ -80,7 +80,7 @@ func GetDiaryCount(c *gin.Context) {
 	var username string
 	username = c.PostForm("username")
 	if username == "" {
-		appG.Response(http.StatusBadRequest, e.INVALID_PARAMS, nil)
+		appG.Response(http.StatusOK, e.INVALID_PARAMS, nil)
 		return
 	}
 
