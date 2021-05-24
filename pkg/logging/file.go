@@ -13,7 +13,7 @@ var (
 )
 
 func getLogFilePath() string {
-	return fmt.Sprintf("%s", LogSavePath)
+	return LogSavePath
 }
 func getLogFileName() string {
 	return fmt.Sprintf("%s%s.%s",

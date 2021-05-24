@@ -20,7 +20,9 @@ func init() {
 	gredis.Setup()
 }
 func main() {
-
+	if setting.ServerSetting.RunMode == "release" {
+		logging.Info(("程序开始运行..."))
+	}
 	endless.DefaultReadTimeOut = setting.ServerSetting.ReadTimeout
 	endless.DefaultWriteTimeOut = setting.ServerSetting.WriteTimeout
 	endless.DefaultMaxHeaderBytes = 1 << 20
