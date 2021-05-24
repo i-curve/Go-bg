@@ -1,5 +1,9 @@
 main
+!runtime
 runtime/*
+!runtime/logs
+runtime/logs/*
+!runtime/logs/readme.md
 upload/*
 logs/*
 .vscode/*
