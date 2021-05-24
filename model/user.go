@@ -42,7 +42,7 @@ func Register(username, password string) (bool, error) {
 	return true, nil
 }
 func Delete(username string) (bool, error) {
-
+	return true, nil
 }
 func IsExist(name string) bool {
 	var user User
