@@ -30,7 +30,7 @@ func CheckPermission(src string) bool {
 	return os.IsPermission(err)
 }
 func IsNotExistMkDir(src string) error {
-	if exist := CheckExist(src); exist == false {
+	if exist := CheckExist(src); !exist {
 		if err := MkDir(src); err != nil {
 			return err
 		}
@@ -59,7 +59,7 @@ func MustOpen(fileName, filePath string) (*os.File, error) {
 
 	src := dir + "/" + filePath
 	perm := CheckPermission(src)
-	if perm == true {
+	if perm {
 		return nil, fmt.Errorf("file.CheckPermission Permission denied src: %s", src)
 	}
 
@@ -70,7 +70,7 @@ func MustOpen(fileName, filePath string) (*os.File, error) {
 
 	f, err := Open(src+fileName, os.O_APPEND|os.O_CREATE|os.O_RDWR, 0644)
 	if err != nil {
-		return nil, fmt.Errorf("Fail to OpenFile :%v", err)
+		return nil, fmt.Errorf("fail to openfile :%v", err)
 	}
 
 	return f, nil
